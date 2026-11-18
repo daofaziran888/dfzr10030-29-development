@@ -74,6 +74,15 @@ def get_entry(entry_id: int) -> dict:
     return entry
 
 
+@router.get("/{entry_id}/rotations", response_model=dict)
+def list_rotations(entry_id: int) -> dict:
+    """数据源侧的轮换可回读记录：围绕凭证轮换批次及来源引用快照留档。"""
+    records = service.list_rotations(entry_id)
+    if records is None:
+        raise HTTPException(status_code=404, detail=f"数据源 {entry_id} 不存在或已归档")
+    return {"items": records, "total": len(records)}
+
+
 @router.post("", response_model=ActionResult)
 def create_entry(payload: dict[str, object]) -> ActionResult:
     """登记一条数据源，缺字段时说明原因而不是静默丢弃。"""

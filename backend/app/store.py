@@ -8,6 +8,10 @@ from typing import Any
 
 from app.seed import SEED_ROWS
 
+# 凭证轮换的辅助表（批次、明细、来源引用快照、数据源侧可回读记录）属于跨模块协作数据，
+# 不计入运营概览的“业务模块”统计；轮换待办通过数据源记录的 pending 回写体现。
+AUX_TABLES = {"rotation_batch", "rotation_item", "rotation_snapshot", "datasource_rotation"}
+
 
 class Store:
     def __init__(self) -> None:
@@ -16,7 +20,7 @@ class Store:
         }
 
     def module_names(self) -> list[str]:
-        return sorted(self._tables)
+        return sorted(name for name in self._tables if name not in AUX_TABLES)
 
     def rows(self, module: str) -> list[dict[str, Any]]:
         return self._tables.setdefault(module, [])

@@ -19,9 +19,10 @@ from app.routers import schedule as router_schedule
 from app.routers import monitor as router_monitor
 from app.routers import log_viewer as router_log_viewer
 from app.routers import auth as router_auth
+from app.routers import rotation as router_rotation
 from app.routers import transform as router_transform
 from app.routers import flow as router_flow
 from app.routers import lineage as router_lineage
 from app.routers import report as router_report
 
-ROUTERS = [router_datasource, router_crawler, router_apiclient, router_incremental, router_robot_task, router_ingestion, router_parser, router_validator, router_dedup, router_schedule, router_monitor, router_log_viewer, router_auth, router_transform, router_flow, router_lineage, router_report]
+ROUTERS = [router_datasource, router_crawler, router_apiclient, router_incremental, router_robot_task, router_ingestion, router_parser, router_validator, router_dedup, router_schedule, router_monitor, router_log_viewer, router_auth, router_rotation, router_transform, router_flow, router_lineage, router_report]
